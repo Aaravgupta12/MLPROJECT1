@@ -48,8 +48,37 @@ class ModelTrainer:
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor()
             }
-            
-            model_report: dict = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models)
+            param={
+                "Decision Tree": {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                },
+                "Random Forest": {
+                    'n_estimators':[8,16,32,64,128,256]
+                },
+                "Gradient Boosting": {
+                    'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    'n_estimators':[8,16,32,64,128,256]
+                },
+                "Linear Regression": {},
+                "K-Neighbors Regressor": {
+                    'n_neighbors':[5,7,9,11]
+                },
+                "XGB Regressor": {
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators':[8,16,32,64,128,256]
+                },
+                "CatBoosting Regressor": {
+                    'iterations':[100,200,300],
+                    'learning_rate':[0.1,0.2,0.3],
+                    'depth':[4,6,8]
+                },
+                "AdaBoost Regressor": {
+                    'n_estimators':[8,16,32,64,128,256],
+                    'learning_rate':[0.1,0.5,1.0]
+                }
+            }
+            model_report: dict = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models, params=param)
             
             
             
